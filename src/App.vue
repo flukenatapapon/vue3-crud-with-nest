@@ -7,9 +7,16 @@ import HelloWorld from './components/HelloWorld.vue'
   <div id="app">
     <h1>Task Groups List</h1>
   </div>
-  <div>
-    <b-table striped hover :items="items"></b-table>
-  </div>
+  <ul>
+    <li v-for="item of items" :key="item.TaskGroupID">
+      {{ item.OrganisationID }}
+    </li>
+  </ul>
+  <ul>
+    <li v-for="item of items" :key="item.TaskGroupID">
+      {{ item.CreateBy }}
+    </li>
+  </ul>
 
 </template>
 <script>
