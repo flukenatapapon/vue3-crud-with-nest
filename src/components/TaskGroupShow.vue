@@ -29,11 +29,15 @@ export default {
     async update(event) {
       console.log(event)
       event.preventDefault();
-      const formData = new FormData(event.target);
-      console.log(this.data)
-      
-      await useTaskGroupStore().update(formData, this.id).then((res) => {
-        this.$emit('updateDone')
+
+      const payload = {
+        OrganisationID: this.data.OrganisationID,
+        CreateBy: this.data.CreateBy,
+        EditBy: this.data.EditBy,
+        EditAt: new Date(),
+      }
+
+      await useTaskGroupStore().update(payload, this.data.TaskGroupID).then((res) => {
         console.log(res)
       }).catch((err) => {
         console.log(err)
@@ -47,7 +51,8 @@ export default {
 </script>
 
 <template>
-  <form class="task-group-from" @submit="createTaskGroup($event)">
+  <form class="task-group-from" @submit="update($event)">
+    <h4>Updated</h4>
     <div class="form-group">
       <label for="TaskGroupID">TaskGroupID</label>
       <input type="text" class="form-control" name="TaskGroupID" v-model="data.TaskGroupID">

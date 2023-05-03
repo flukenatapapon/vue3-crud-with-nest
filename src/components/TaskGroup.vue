@@ -29,10 +29,18 @@ export default {
         EditAt: this.EditAt
       }
 
-      await useTaskGroupStore().create(payload).then((response) => {
-        console.log(response.data)
+      await useTaskGroupStore().create(payload).then(() => {
+        this.resetFrom()
         this.$emit('reloadRecord')
+      }).catch((err) => {
+        console.log(err)
       })
+    },
+    resetFrom() {
+      this.TaskGroupID = uuid();
+      this.OrganisationID = "";
+      this.CreateBy = "";
+      this.EditBy = "";
     }
   },
   emits: ["createTaskGroup"]
@@ -42,6 +50,7 @@ export default {
 
 <template>
   <form class="task-group-from" @submit="createTaskGroup($event)">
+    <h4>Created</h4>
     <div class="form-group">
       <label for="TaskGroupID">TaskGroupID</label>
       <input type="text" class="form-control" name="TaskGroupID" v-model="TaskGroupID">

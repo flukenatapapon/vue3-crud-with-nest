@@ -30,10 +30,11 @@ function reloadRecord() {
   padding-top: 50px !important;
 }
 .left {
+  width: 800px;
   overflow: auto;
 }
 .right {
-  width: 50%;
+  width: 300px;
   overflow: auto;
 }
 </style>

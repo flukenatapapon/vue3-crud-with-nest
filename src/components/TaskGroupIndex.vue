@@ -79,7 +79,7 @@ export default {
     </tr>
     </tbody>
     <tbody v-if="isLoading">
-      <tr>
+      <tr class="red">
         <td colspan="8">Now Loading...</td>
       </tr>
     </tbody>
@@ -87,4 +87,7 @@ export default {
 </template>
 
 <style scoped>
+.red {
+  background-color: red;
+}
 </style>
