@@ -14,6 +14,6 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 
-axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.baseURL = 'https://clever-bass-helmet.cyclic.app'
 
 app.mount('#app')
