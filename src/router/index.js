@@ -1,6 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import TaskView from '../views/TaskView.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import HomeView from '../views/HomeView.vue';
+
+import TaskGroupsCreateView from '../views/TaskGroupsCreateView.vue';
+import TaskGroupsIndexView from '../views/TaskGroupsIndexView.vue';
+import TaskGroupsShowView from '../views/TaskGroupsShowView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,9 +22,19 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue')
     },
     {
-      path: '/task_group',
-      name: 'task_group',
-      component: TaskView
+      path: '/task_groups/create',
+      name: 'task_group_create',
+      component: TaskGroupsCreateView
+    },
+    {
+      path: '/task_groups',
+      name: 'task_group_index',
+      component: TaskGroupsIndexView
+    },
+    {
+      path: '/task_groups/:id',
+      name: 'task_group_show',
+      component: TaskGroupsShowView
     }
   ]
 })
