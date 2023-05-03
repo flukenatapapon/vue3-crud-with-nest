@@ -12,5 +12,17 @@ export const useTaskGroupStore = defineStore('taskGroup', () => {
     return axios.get('/task-groups')
   }
 
-  return { create, index }
+  function show(params) {
+    return axios.get(`/task-groups/${params}`)
+  }
+
+  function update(payload, params) {
+    return axios.patch(`/task-groups/${params}`, payload)
+  }
+
+  function destroy(params) {
+    return axios.delete(`/task-groups/${params}`)
+  }
+
+  return { create, index, show, update, destroy }
 })

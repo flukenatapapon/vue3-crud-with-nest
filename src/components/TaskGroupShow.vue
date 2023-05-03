@@ -1,38 +1,79 @@
 <script>
-import { v4 as uuid } from 'uuid';
-// import { useTaskGroupStore } from '../stores/taskGroup'
+import { useTaskGroupStore } from '../stores/taskGroup'
+
 export default {
   name: 'TaskGroupShow',
   data() {
     return {
-      TaskGroupID: uuid(),
-      OrganisationID: "",
-      CreateBy: "",
-      CreateAt: new Date(),
-      EditBy: "",
-      EditAt: new Date(),
+      data: {
+        TaskGroupID: "",
+        OrganisationID: "",
+        CreateBy: "",
+        CreateAt: "",
+        EditBy: "",
+        EditAt: "",
+      },
+      id: "",
     }
   }, 
   methods: {
     async initialData() {
-      console.log(this.$route.params)
+      this.id = this.$route.params.id;
+
+      await useTaskGroupStore().show(this.id).then((res) => {
+        this.data = res.data
+      }).catch((err) => {
+        console.log(err)
+      })      
+    },
+    async update(event) {
+      console.log(event)
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      console.log(this.data)
+      
+      await useTaskGroupStore().update(formData, this.id).then((res) => {
+        this.$emit('updateDone')
+        console.log(res)
+      }).catch((err) => {
+        console.log(err)
+      })
     }
+  },
+  mounted(){
+    this.initialData()
   }
 }
 </script>
 
 <template>
-  <div id="task-group-form">
-    <form @submit="createTaskGroup($event)">
-      <input type="text" name="TaskGroupID" v-model="TaskGroupID">
-      <input type="text" name="OrganisationID" v-model="OrganisationID">
-      <input type="text" name="CreateBy" v-model="CreateBy">
-      <input type="text" name="EditBy" v-model="EditBy">
-      <input type="submit" value="submit">
-    </form>
-  </div>
+  <form class="task-group-from" @submit="createTaskGroup($event)">
+    <div class="form-group">
+      <label for="TaskGroupID">TaskGroupID</label>
+      <input type="text" class="form-control" name="TaskGroupID" v-model="data.TaskGroupID">
+    </div>
+    <div class="form-group">
+      <label for="OrganisationID">OrganisationID</label>
+      <input type="text" class="form-control" name="OrganisationID" v-model="data.OrganisationID">
+    </div>
+    <div class="form-group">
+      <label for="CreateBy">CreateBy</label>
+      <input type="text" class="form-control" name="CreateBy" v-model="data.CreateBy">
+    </div>
+    <div class="form-group">
+      <label for="EditBy">EditBy</label>
+      <input type="text" class="form-control" name="EditBy" v-model="data.EditBy">
+    </div>
+    <div class="form-group">
+      <input class="btn btn-primary" type="submit" value="submit">
+    </div>
+  </form>
 </template>
 
 <style scoped>
-
+  .task-group-from {
+    border: 1px solid #12c2c2;
+    border-radius: 12px;
+    padding: 20px;
+  }
 </style>
